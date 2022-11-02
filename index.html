@@ -6,42 +6,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <style>
+        @font-face {
+            font-family: 'yg-jalnan';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        html {
+            font-family: 'yg-jalnan';
+            background-color: #ceeaf5;
+        }
         .container {
             width: 100%;
             margin: auto;
+            height: 90vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
         }
         header {
-            border: 1px solid black;
             padding: 10px;
-            font-size: 24px;
             box-sizing: border-box;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+        }
+        header span {
+            font-size: 25px;
         }
         article {
             float: center;
-            border: 1px solid black;
+            padding: 10px;
             width: 100%;
-            min-height: 500px;
             text-align: center;
             margin: auto;
             font-size: 49px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        footer {
-            border: 1px solid black;
+
+        .icon-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .icon-weather-box {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .icon-weather {
+            width: 80%;
+            /* margin: 100px auto; */
+        }
+        .data {
+            font-size: 18px;
+            padding-left: 10px;
+        }
+        .flex-box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-top: 40px;
+        }
+        .temperature {
+            font-size: 22px;
+        }
+        .another_data {
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .A {
+            margin-bottom: 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .temp {
+            font-size: 20px;
+            margin-top: 10px;
+            
+        }
+        .round-box {
+            background-color: #bbe2f0;
+            border-radius: 1rem;
+            height: 8rem;
+            padding: 0px 12px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>서울</header>
+        <header>
+            <img class="icon-img" src="./weather/서울표시.png" alt="서울표시">
+            <span>오늘 서울의 날씨</span>
+        </header>
         <section>
             <article>
-            <h2>화창</h2>
+                <h2>화창</h2>
+                <div class="icon-weather-box">
+                    <img class="icon-weather" src="./weather/맑음.png" alt="맑음">
+                </div>
+            </article>
+
+            <article class="info">
+                <div class="flex-box round-box">
+                    <img class="icon-img" src="./weather/온도.png" alt="온도">
+                    <div class="temperature">
+                        <span>현재 온도</span>
+                        <p class="data temp">7℃</p>
+                    </div>
+                </div>
+                <div class="another_data round-box">
+                    <div class="A">
+                        <img class="icon-img" src="./weather/습도.png" alt="현재 습도">
+                        <span>습도</span>
+                        <span class="data">10%</span>
+                    </div>
+                    <div class="A">
+                        <img class="icon-img" src="./weather/미세먼지.png" alt="미세먼지">
+                        <span>미세먼지</span>
+                        <span class="data">보통</span>
+                    </div>
+                </div>
             </article>
         </section>
-        <footer>체감온도</footer>
+        <footer>
+
+        </footer>
     </div>
 </body>
 </html>

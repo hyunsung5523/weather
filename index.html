@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <style>
         @font-face {
             font-family: 'yg-jalnan';
@@ -89,6 +89,9 @@
         .temperature {
             font-size: 22px;
         }
+        .temperature span {
+            font-size: 21px;
+        }
         .another_data {
             font-size: 18px;
             display: flex;
@@ -119,13 +122,13 @@
     <div class="container">
         <header>
             <img class="icon-img" src="./weather/서울표시.png" alt="서울표시">
-            <span>오늘 서울의 날씨</span>
+            <span id="location"></span>
         </header>
         <section>
             <article>
-                <h2>화창</h2>
+                <h2 id="weatherTitle"></h2>
                 <div class="icon-weather-box">
-                    <img class="icon-weather" src="./weather/맑음.png" alt="맑음">
+                    <img id="weatherImage" class="icon-weather" src="" alt="맑음">
                 </div>
             </article>
 
@@ -134,26 +137,54 @@
                     <img class="icon-img" src="./weather/온도.png" alt="온도">
                     <div class="temperature">
                         <span>현재 온도</span>
-                        <p class="data temp">7℃</p>
+                        <p class="data temp" id="nowTemp"></p>
                     </div>
                 </div>
                 <div class="another_data round-box">
                     <div class="A">
-                        <img class="icon-img" src="./weather/습도.png" alt="현재 습도">
-                        <span>습도</span>
-                        <span class="data">10%</span>
+                        <img class="icon-img" src="./weather/온도.png" alt="현재 습도">
+                        <span>최저 온도</span>
+                        <span class="data" id="rowTemp"></span>
                     </div>
                     <div class="A">
-                        <img class="icon-img" src="./weather/미세먼지.png" alt="미세먼지">
-                        <span>미세먼지</span>
-                        <span class="data">보통</span>
+                        <img class="icon-img" src="./weather/온도.png" alt="미세먼지">
+                        <span>최고 온도</span>
+                        <span class="data" id="highTemp"></span>
                     </div>
                 </div>
             </article>
         </section>
-        <footer>
-
-        </footer>
     </div>
+    <script>
+        $(function() {
+            var successCallback = function (position) {
+              var latitude = position.coords.latitude;
+              var longitude = position.coords.longitude;
+              var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=93f3448e7cc4218a7e907c652c75da58&lang=kr&units=metric';   
+              $.ajax({
+                url: url,
+                success: function (res) {
+                    var weather = res.weather[0];
+                    var name = '오늘 ' + res.name + '의 날씨';
+                    var temp = res.main;
+                    $('#location').text(name);
+                    $('#weatherTitle').text(weather.description);
+                    $('#weatherImage').attr('src', './weather/' + weather.icon + '.png');
+                    $('#nowTemp').text(Math.round(temp.temp) + '℃');
+                    $('#rowTemp').text(Math.round(temp.temp_min) + '℃');
+                    $('#highTemp').text(Math.round(temp.temp_max) + '℃');
+                },
+                error: function () {
+                    console.error('error')
+                }
+              })
+            };
+
+            var errorCallback = function (error) {
+                console.log(error);
+            };
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        })
+    </script>
 </body>
 </html>

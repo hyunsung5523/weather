@@ -157,15 +157,14 @@
     </div>
     <script>
         $(function() {
-            var successCallback = function (position) {
-              var latitude = position.coords.latitude;
-              var longitude = position.coords.longitude;
+            var latitude = 37.5683;
+              var longitude = 126.977;
               var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=93f3448e7cc4218a7e907c652c75da58&lang=kr&units=metric';   
               $.ajax({
                 url: url,
                 success: function (res) {
                     var weather = res.weather[0];
-                    var name = '오늘 ' + res.name + '의 날씨';
+                    var name = '오늘서울의 날씨';
                     var temp = res.main;
                     $('#location').text(name);
                     $('#weatherTitle').text(weather.description);
@@ -178,12 +177,6 @@
                     console.error('error')
                 }
               })
-            };
-
-            var errorCallback = function (error) {
-                console.log(error);
-            };
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
         })
     </script>
 </body>
